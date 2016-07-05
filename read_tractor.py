@@ -34,7 +34,7 @@ def magnitude(f): # nanomaggies to magnitudes
 
 aMask = [sum(x) for x in Mask]
 
-# Number of observations
+# Number of observations in z-filter
 z_nobs = d_nobs[:,4]
 print(min(z_nobs))
 print(max(z_nobs))
