@@ -1,3 +1,8 @@
+"""
+Reads any 1 fits file and creates histograms for RA, DEC, half-light radius (EXP and DEV), ellipticity (EXP and DEV), and DECAM magnitudes.
+Also prints out the number of exposures in z and the PSF size in each of the decam filters.
+"""
+
 import sys
 image = str(sys.argv[1])
 from astropy.io import fits
@@ -25,9 +30,10 @@ d_nobs = tbl.field('decam_nobs') # Decam number of exposures
 import matplotlib.pyplot as plt
 import math
 import itertools 
+from numpy import mean
 def magnitude(f): # nanomaggies to magnitudes
    if f <= 0:
-      m = 35
+      m = 35 # if flux is negative, magnitude value will be 35 so it is separated from the rest of the data
    else:
       m = 22.5 - 2.5*math.log10(f)
    return m
@@ -36,9 +42,16 @@ aMask = [sum(x) for x in Mask]
 
 # Number of observations in z-filter
 z_nobs = d_nobs[:,4]
-print(min(z_nobs))
-print(max(z_nobs))
+print('Number of observations in z (min, max):')
+print(min(z_nobs), max(z_nobs)) # Prints minimum and maximum number of observations in z
 
+
+# PSF Sizes
+g_PSF = PSF[:,1]
+r_PSF = PSF[:,2]
+z_PSF = PSF[:,4]
+print ('PSF sizes: (g, r, z):')
+print (mean(g_PSF),mean(r_PSF), mean(z_PSF)) # Prints PSF sizes for all three filters
 
 # RA histogram
 plt.hist(RA, histtype='stepfilled', color='c')
@@ -52,8 +65,13 @@ plt.title("DECaL DEC Histogram")
 plt.xlabel("DEC Value")
 plt.show()
 
-# Radius, Exponential
-rE_1 = [word for (word, mask1, mask2) in zip(rE, type1, aMask) if mask1 == 'EXP' and  mask2 == 0]
+"""
+For these histograms, no objects with masking values greater than 0 will be used. Ellipticity and radius are matched with their 
+corresponding type.
+"""
+
+# Radius, Exponential 
+rE_1 = [word for (word, mask1, mask2) in zip(rE, type1, aMask) if mask1 == 'EXP' and  mask2 == 0] 
 plt.hist(rE_1, range=(0, 10), histtype='stepfilled', color='c')
 plt.title("DECaL Half-Light Radius (Exponential) Histogram")
 plt.xlabel("Radius")
