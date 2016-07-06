@@ -1,3 +1,5 @@
+""" Finds angle of orientation and checks for any skew in any 2 fits files. """
+
 import sys
 image1 = str(sys.argv[1])
 image2 = str(sys.argv[2])
@@ -31,13 +33,18 @@ from operator import truediv
 aMask_A = [sum(x) for x in Mask_A] # see if any individual filter error is there for a candidate
 aMask_B = [sum(x) for x in Mask_B]
 
-def orientation(x):
+def orientation(x): # angle of orientation
     angle = 0.5*atan(x)
     return degrees(angle)
+"""
+No object with a masking value greater than zero or ellipiticiy component 1 equal to zero will be used for calculations of the angle
+of orientation. We do not want to use any biased data (hence, we take out bad pixels). We also will need to divide ellipticity component
+2 by ellipticity component 1, therefore the latter cannot equal zero.
+"""
 
-eE1_A1 = [x for (x, mask1, mask2) in zip(eE1_A, eE1_A, aMask_A) if mask1 != 0 and mask2 == 0]
-eE2_A1 = [x for (x, mask1, mask2) in zip(eE2_A, eE1_A, aMask_A) if mask1 != 0 and mask2 == 0]
-eD1_A1 = [x for (x, mask1, mask2) in zip(eD1_A, eD1_A, aMask_A) if mask1 != 0 and mask2 == 0]
+eE1_A1 = [x for (x, mask1, mask2) in zip(eE1_A, eE1_A, aMask_A) if mask1 != 0 and mask2 == 0] 
+eE2_A1 = [x for (x, mask1, mask2) in zip(eE2_A, eE1_A, aMask_A) if mask1 != 0 and mask2 == 0] 
+eD1_A1 = [x for (x, mask1, mask2) in zip(eD1_A, eD1_A, aMask_A) if mask1 != 0 and mask2 == 0] 
 eD2_A1 = [x for (x, mask1, mask2) in zip(eD2_A, eD1_A, aMask_A) if mask1 != 0 and mask2 == 0]
 
 eE1_B1 = [x for (x, mask1, mask2) in zip(eE1_B, eE1_B, aMask_B) if mask1 != 0 and mask2 == 0]
@@ -47,8 +54,8 @@ eD2_B1 = [x for (x, mask1, mask2) in zip(eD2_B, eD1_B, aMask_B) if mask1 != 0 an
 
 # Exponential
 
-ratio_e_A = map(truediv, eE2_A1, eE1_A1)
-angle_e_A = [0.5*orientation(x) for x in ratio_e_A]
+ratio_e_A = map(truediv, eE2_A1, eE1_A1) # component 2 / component 1
+angle_e_A = [0.5*orientation(x) for x in ratio_e_A] # angle = 0.5 * arctan(component 2/ component 1)
 
 ratio_e_B = map(truediv, eE2_B1, eE1_B1)
 angle_e_B = [0.5*orientation(x) for x in ratio_e_B]
@@ -73,15 +80,15 @@ plt.title("Angle of Orientation of Ellipticity Histogram (de Vaucouleurs)")
 plt.show()
 
 
-# Mean, Median, and Moment (Skewness)
-a = numpy.mean(angle_e_A)
+# Mean and Moment (Skewness)
+a = numpy.mean(angle_e_A) # Mean
 b = numpy.mean(angle_e_B)
 c = numpy.mean(angle_d_A)
 d = numpy.mean(angle_d_B)
 
 print('Means (EXP A/B, DEV A/B):', a, b, c, d)
 
-x = moment(angle_e_A, moment=3)
+x = moment(angle_e_A, moment=3) # 3rd moment (skewness)
 y = moment(angle_e_B, moment=3)
 z = moment(angle_d_A, moment=3)
 w = moment(angle_d_B, moment=3)
