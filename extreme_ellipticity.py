@@ -1,3 +1,9 @@
+"""
+Finds "extreme" (e < -.75 and e > .75) ellipticities and plots histograms for their radii and magnitudes. Used to see if extreme 
+ellipticities correspond to a specific type of galaxy or star (eg: small, faint)
+"""
+
+
 import sys
 image1 = str(sys.argv[1])
 image2 = str(sys.argv[2])
@@ -18,6 +24,7 @@ eD2_A = tbl.field('shapeDev_e2') # ellipticity component 2, devaucouleurs model
 type_A = tbl.field('type') # type: EXP, DEV, PSF, SIMP
 Mask_A = tbl.field('decam_anymask') #check this- any mask (for errors in telescope)
 PSF_A = tbl.field('decam_psfsize') # PSF (Point Spread Function) Size
+
 columns = hdulist[1].columns # use to see names of columns
 data = hdulist[1].data # data stored within the table
 RA_B = data.field('ra') # RA values
@@ -37,7 +44,7 @@ import matplotlib.pyplot as plt
 import math
 import itertools 
 def magnitude(f): # nanomaggies to magnitudes
-   if f <= 0:
+   if f <= 0: # if the flux is less then 0, magnitude value will be set to 35 so that it is separated from the rest of the data
       m = 35
    else:
       m = 22.5 - 2.5*math.log10(f)
@@ -45,6 +52,12 @@ def magnitude(f): # nanomaggies to magnitudes
 
 aMask_A = [sum(x) for x in Mask_A] # see if any individual filter error is there for a candidate
 aMask_B = [sum(x) for x in Mask_B]
+
+"""
+DEV and EXP galaxies' ellipticity and radii will be calculated separately as to not mix-up the data. We also only
+want to look unbiased data, so all objects with a masking value > 0 will be thrown out
+"""
+
 rE_A1 = [word for (word, mask1, mask2) in zip(rE_A, type_A, aMask_A) if mask1 == 'EXP' and  mask2 == 0]
 rE_B1 = [word for (word, mask1, mask2) in zip(rE_B, type_B, aMask_B) if mask1 == 'EXP' and  mask2 == 0]
 rD_A1 = [word for (word, mask1, mask2) in zip(rD_A, type_A, aMask_A) if mask1 == 'DEV' and  mask2 == 0]
@@ -57,6 +70,11 @@ eD1_A1 = [word for (word, mask1, mask2) in zip(eD1_A, type_A, aMask_A) if mask1 
 eD1_B1 = [word for (word, mask1, mask2) in zip(eD1_B, type_B, aMask_B) if mask1 == 'DEV' and  mask2 == 0]
 eD2_A2 = [word for (word, mask1, mask2) in zip(eD2_A, type_A, aMask_A) if mask1 == 'DEV' and  mask2 == 0]
 eD2_B2 = [word for (word, mask1, mask2) in zip(eD2_B, type_B, aMask_B) if mask1 == 'DEV' and  mask2 == 0]
+
+"""
+Finding g, r, and z fluxes and their respective magnitudes.
+"""
+
 g_A = fD_A[:,1]
 g_B = fD_B[:,1]
 gMAG_A = [magnitude(f) for f in g_A]
@@ -77,7 +95,7 @@ zMAG_A1 = [x for (x, mask) in zip(zMAG_A, aMask_A) if mask == 0]
 zMAG_B1 = [x for (x, mask) in zip(zMAG_B, aMask_B) if mask == 0]
 
 #Exponential Graphs
-rE1_A_ellipse = [x for (x, mask1) in zip(rE_A1, eE1_A1) if mask1 >= 0.75 or mask1<= -0.75] 
+rE1_A_ellipse = [x for (x, mask1) in zip(rE_A1, eE1_A1) if mask1 >= 0.75 or mask1<= -0.75]  # conditions for extreme ellipticities
 rE1_B_ellipse = [x for (x, mask1) in zip(rE_B1, eE1_B1) if mask1 >= 0.75 or mask1<= -0.75]
 plt.hist(rE1_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
 plt.hist(rE1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
