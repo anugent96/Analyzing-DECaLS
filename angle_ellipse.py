@@ -1,4 +1,4 @@
-""" Finds angle of orientation and checks for any skew in any 2 fits files. """
+""" Finds angle of orientation and checks for any skew in any 2 fits files. Will also create histograms for the angles."""
 
 import sys
 image1 = str(sys.argv[1])
