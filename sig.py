@@ -1,5 +1,5 @@
 """ 
-Takes any 1 fits fle and prints RA, dec, fluxes (g, r, z, w1), masking value, type, and number of observations in z for when z flux
+Takes any 1 fits fle and prints RA, dec, fluxes (g, r, z, w1), masking value, type, number of observations in z, and rchi2 value for when z flux
 is significantly positive (>2) and all other fluxes are not significant (<1).
 """
 
@@ -18,6 +18,7 @@ d_nobs = tbl.field('decam_nobs') # number of observations taken in each filter
 Type = tbl.field('type') # type of object
 ivd = tbl.field('decam_flux_ivar') # inverse variance for decam (1/sigma squared)
 ivw = tbl.field('wise_flux_ivar')  # inverse variance for wise
+rchi2 = tbl.field('decam_rchi2') # decam rchi2 value
 
 # Necessary Imports/ Functions
 import numpy as np
@@ -31,6 +32,8 @@ r_sig2 = np.array(ivd[:,2]) # r inverse variance
 z_sig2 = np.array(ivd[:,4]) # z inverse variance
 w1_sig2 = np.array(ivw[:,0]) # w1 inverse variance
 aMask = [sum(x) for x in Mask] # see if any individual filter error is there for a candidate
+z_rchi2 = rchi2[:,4] # rchi2 value in z filter
+
 
 """
 Flux times the squareroot of its corresponding inverse variance. Gives a better value for flux that can be used to find fluxes that
@@ -56,6 +59,7 @@ w1_1 = [x for (x, mask1, mask2) in zip(w1_test, w1_test, z_test) if mask1 < 1 an
 aMask1 = [x for (x, mask1, mask2) in zip(aMask, w1_test, z_test) if mask1 < 1 and mask2 > 2]
 type1 = [x for (x, mask1, mask2) in zip (Type, w1_test, z_test) if mask1 < 1 and mask2 > 2]
 z_nobs1 = [x for (x, mask1, mask2) in zip (z_nobs, w1_test, z_test) if mask1 < 1 and mask2 > 2]
+z1_rchi2 = [x for (x, mask1, mask2) in zip (z_rchi2, w1_test, z_test) if mask1 < 1 and mask2 > 2]
 
       
 RA2 = [x for (x, mask1, mask2) in zip(RA1, g1, r1) if mask1 < 1 and mask2 < 1]
@@ -67,6 +71,7 @@ w1_2 = [x for (x, mask1, mask2) in zip(w1_1, g1, r1) if mask1 < 1 and mask2 < 1]
 aMask2 = [x for (x, mask1, mask2) in zip(aMask1, g1, r1) if mask1 < 1 and mask2 < 1]
 type2 = [x for (x, mask1, mask2) in zip (type1, g1, r1) if mask1 < 1 and mask2 < 1]
 z_nobs2 = [x for (x, mask1, mask2) in zip (z_nobs1, g1, r1) if mask1 < 1 and mask2 < 1]
+z2_rchi2 = [x for (x, mask1, mask2) in zip (z1_rchi2, g1, r1) if mask1 < 1 and mask2 < 1]
 
 
 
@@ -86,12 +91,15 @@ while i < len(RA2) and i < len(DEC2) and i < len(g2) and i < len(r2) and i < len
     c = aMask2[i]
     d = type2[i]
     f = z_nobs2[i]
+    g = z2_rchi2[i]
     if c == 0:
-        print(x, y, z, w, a, b, c, d, f)    
+        print(x, y, z, w, a, b, c, d, f, g)    
     i +=1
 
     
     
-print('Num possible unmasked CRs=', len(RA2)) # prints total number of objects with the conditions above (z-flux signicant, others not)
+print('Num possible unmasked CRs=', len(RA2))    
 
-
+zPsf1 = [x for (x, y, z) in zip(z2_rchi2, aMask, z2_rchi2) if y == 0 and z < 1]
+print('Number of possible CRs with z-RChi2 value under 1:')
+print(len(zPsf1))
