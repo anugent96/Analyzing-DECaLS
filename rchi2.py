@@ -1,3 +1,8 @@
+"""
+Prints histograms of PSF type objects and their rchi2 value in each of the filters. Also can print specific values and their coordinates,
+and masking value
+"""
+
 import sys
 image = str(sys.argv[1])
 
