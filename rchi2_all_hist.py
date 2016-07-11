@@ -1,3 +1,7 @@
+"""
+Makes histograms of rchi2 values for the different types of objects. Plots based on filter used (g, r, z).
+"""
+
 import sys
 image = str(sys.argv[1])
 
