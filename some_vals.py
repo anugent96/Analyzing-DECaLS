@@ -88,6 +88,14 @@ print(mean(PSF[:,1]), mean(PSF[:,2]), mean(PSF[:,4]))
 print('Number of unmasked objects:')
 print(num_unmasked_obj)
 
+print('Number of galaxies:')
+type2 = [x for (x,y) in zip(type1, aMask) if y == 0]
+galaxy = [x for (x, y) in zip(unmasked_obj, type2) if y == 'EXP' or y == 'DEV' or y == 'COMP' or y == 'SIMP']
+print(len(galaxy))
+
+print('Number of stars:')
+stars = [x for (x, y) in zip(unmasked_obj, type2) if y == 'PSF']
+print(len(stars))
 
 print('Exponential Ellipticity Skew (avg, moment), (1/2):')
 print(mean(eExp1), moment(eExp1, moment=3), mean(eExp2), moment(eExp2, moment=3))
