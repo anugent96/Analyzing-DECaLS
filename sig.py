@@ -47,9 +47,10 @@ w1_test = w1*(w1_sig2**0.5)
 
 # To print negative fluxes
 """
-Finds RA, DEC, fluxes, masking values, and z_n-obs for when z-flux>2 and all other fluxes < 1
+Finds RA, DEC, fluxes, masking values, type, rchi2 for when object is significantly visible in only 1 image.
 """
 
+# Possible CRs in z
 RA1 = [x for (x, mask1, mask2) in zip(RA, w1_test, z_test) if mask1 < 1 and mask2 > 2]
 DEC1 = [x for (x, mask1, mask2) in zip(DEC, w1_test, z_test) if mask1 < 1 and mask2 > 2]
 g1 = [x for (x, mask1, mask2) in zip(g_test, w1_test, z_test) if mask1 < 1 and mask2 > 2]
@@ -60,7 +61,6 @@ aMask1 = [x for (x, mask1, mask2) in zip(aMask, w1_test, z_test) if mask1 < 1 an
 type1 = [x for (x, mask1, mask2) in zip (Type, w1_test, z_test) if mask1 < 1 and mask2 > 2]
 z_nobs1 = [x for (x, mask1, mask2) in zip (z_nobs, w1_test, z_test) if mask1 < 1 and mask2 > 2]
 z1_rchi2 = [x for (x, mask1, mask2) in zip (z_rchi2, w1_test, z_test) if mask1 < 1 and mask2 > 2]
-
       
 RA2 = [x for (x, mask1, mask2) in zip(RA1, g1, r1) if mask1 < 1 and mask2 < 1]
 DEC2 = [x for (x, mask1, mask2) in zip(DEC1, g1, r1) if mask1 < 1 and mask2 < 1]
@@ -73,13 +73,34 @@ type2 = [x for (x, mask1, mask2) in zip (type1, g1, r1) if mask1 < 1 and mask2 <
 z_nobs2 = [x for (x, mask1, mask2) in zip (z_nobs1, g1, r1) if mask1 < 1 and mask2 < 1]
 z2_rchi2 = [x for (x, mask1, mask2) in zip (z1_rchi2, g1, r1) if mask1 < 1 and mask2 < 1]
 
+# Possible CRs in g
+RA3 = [x for (x, mask1, mask2) in zip(RA, w1_test, g_test) if mask1 < 1 and mask2 > 2]
+aMask3 = [x for (x, mask1, mask2) in zip(aMask, w1_test, g_test) if mask1 < 1 and mask2 > 2]
+g3 = [x for (x, mask1, mask2) in zip(g_test, w1_test, g_test) if mask1 < 1 and mask2 > 2]
+r3 = [x for (x, mask1, mask2) in zip(r_test, w1_test, g_test) if mask1 < 1 and mask2 > 2]
+z3 = [x for (x, mask1, mask2) in zip(z_test, w1_test, g_test) if mask1 < 1 and mask2 > 2]
+w1_3 = [x for (x, mask1, mask2) in zip(w1_test, w1_test, g_test) if mask1 < 1 and mask2 > 2]
+
+      
+RA4 = [x for (x, mask1, mask2) in zip(RA3, z3, r3) if mask1 < 1 and mask2 < 1]
+aMask4 = [x for (x, mask1, mask2) in zip(aMask3, z3, r3) if mask1 < 1 and mask2 < 1]
+RA5 = [x for (x, y) in zip(RA4, aMask4) if y == 0]
+
+# Possible CRs in r
+RA6 = [x for (x, mask1, mask2) in zip(RA, w1_test, r_test) if mask1 < 1 and mask2 > 2]
+aMask6 = [x for (x, mask1, mask2) in zip(aMask, w1_test, r_test) if mask1 < 1 and mask2 > 2]
+g6 = [x for (x, mask1, mask2) in zip(g_test, w1_test, r_test) if mask1 < 1 and mask2 > 2]
+r6 = [x for (x, mask1, mask2) in zip(r_test, w1_test, r_test) if mask1 < 1 and mask2 > 2]
+z6 = [x for (x, mask1, mask2) in zip(z_test, w1_test, r_test) if mask1 < 1 and mask2 > 2]
+w1_6 = [x for (x, mask1, mask2) in zip(w1_test, w1_test, r_test) if mask1 < 1 and mask2 > 2]
+
+      
+RA7 = [x for (x, mask1, mask2) in zip(RA6, z6, g6) if mask1 < 1 and mask2 < 1]
+aMask7 = [x for (x, mask1, mask2) in zip(aMask6, z6, g6) if mask1 < 1 and mask2 < 1]
+RA8 = [x for (x, y) in zip(RA7, aMask7) if y == 0]
 
 
-"""
-Prints these values for when masking value == 0
-"""
-
-print('RA , DEC, g, r, z, w1, mask, type, z-nobs')
+print('RA , DEC, g, r, z, w1, mask, type, z-nobs, z-rchi2')
 i = 0
 while i < len(RA2) and i < len(DEC2) and i < len(g2) and i < len(r2) and i < len(z2) and i < len(w1_2) and i < len(aMask2):
     x = RA2[i]
@@ -96,10 +117,22 @@ while i < len(RA2) and i < len(DEC2) and i < len(g2) and i < len(r2) and i < len
         print(x, y, z, w, a, b, c, d, f, g)    
     i +=1
 
-    
-    
-print('Num possible unmasked CRs=', len(RA2))    
+ 
+print('Num total unmasked objects detected:')
+RA_unmask = [x for (x,y) in zip(RA, aMask) if y == 0]
+print(len(RA_unmask))
+
+print('Num possible unmasked CRs in z=')
+print(len(RA2))
+
+print('Num possible unmasked CRs in g=')
+print(len(RA5))
+
+print('Num possible unmasked CRs in r=')
+print(len(RA8))
+
 
 zPsf1 = [x for (x, y, z) in zip(z2_rchi2, aMask, z2_rchi2) if y == 0 and z < 1]
 print('Number of possible CRs with z-RChi2 value under 1:')
 print(len(zPsf1))
+
