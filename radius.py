@@ -1,3 +1,8 @@
+"""
+Takes in 6 different DECaLS fits files and creates magnitude histograms for objects with a half-light radius > 50. Also prints ra, dec,
+and type or objects with large DEV radii.
+"""
+
 import sys
 image1 = str(sys.argv[1]) # DECaLS tractor.fits file
 image2 = str(sys.argv[2])
