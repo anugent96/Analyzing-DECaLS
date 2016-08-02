@@ -1,5 +1,5 @@
 """
-Makes histograms of rchi2 values for the different types of objects. Plots based on filter used (g, r, z). Also prints out all of the 
+Makes histograms of rchi2 values for the different types of objects (PSF, COMP, DEV, EXP, unmasked CRs). Plots based on filter used (g, r, z). Also prints out all of the 
 rchi2 values for unmasked cosmic rays.
 """
 
@@ -94,7 +94,7 @@ g_comp = [x for (x,y,w) in zip(g_rchi2, type1, g_rchi2) if y == 'COMP' and not m
 r_comp = [x for (x,y,w) in zip(r_rchi2, type1, r_rchi2) if y == 'COMP' and not math.isnan(w)]
 z_comp = [x for (x,y,w) in zip(z_rchi2, type1, z_rchi2) if y == 'COMP' and not math.isnan(w)] 
 
-# g_psf histogram
+# g histogram
 plt.hist(g_psf, color='k', range=(0,100), bins=np.logspace(-0.5, 1.0, 50), label='PSF', histtype='stepfilled')
 plt.hist(g_exp, color='c', range=(0,100), bins=np.logspace(-0.5, 1.0, 50), label='EXP', histtype='stepfilled')
 plt.hist(g_dev, color='y', range=(0,100), bins=np.logspace(-0.5, 1.0, 50), alpha=0.7, label='DEV', histtype='stepfilled')
@@ -106,7 +106,7 @@ plt.xscale('log')
 plt.yscale('log')
 plt.show()
 
-# r_psf histogram
+# r histogram
 plt.hist(r_psf, color='k', range=(0,100), bins=np.logspace(-0.5, 1.0, 50), label='PSF', histtype='stepfilled')
 plt.hist(r_exp, color='c', range=(0,100), bins=np.logspace(-0.5, 1.0, 50), alpha=0.7, label='EXP', histtype='stepfilled')
 plt.hist(r_dev, color='y', range=(0,100), bins=np.logspace(-0.5, 1.0, 50), alpha=0.7, label='DEV', histtype='stepfilled')
@@ -118,7 +118,7 @@ plt.xscale('log')
 plt.yscale('log')
 plt.show()
 
-# z_psf histogram
+# z histogram
 plt.hist(z_psf, color='k', range=(0,100), bins=np.logspace(-.5, 1.5, 50), label='PSF', histtype='stepfilled')
 plt.hist(z_exp, color='c', range=(0,100), bins=np.logspace(-.5, 1.5, 50), alpha=0.7, label='EXP', histtype='stepfilled')
 plt.hist(z_dev, color='y', range=(0,100), bins=np.logspace(-.5, 1.5, 50), alpha=0.7, label='DEV', histtype='stepfilled')
