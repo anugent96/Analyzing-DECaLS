@@ -99,7 +99,7 @@ RA7 = [x for (x, mask1, mask2) in zip(RA6, z6, g6) if mask1 < 1 and mask2 < 1]
 aMask7 = [x for (x, mask1, mask2) in zip(aMask6, z6, g6) if mask1 < 1 and mask2 < 1]
 RA8 = [x for (x, y) in zip(RA7, aMask7) if y == 0]
 
-
+# Prints RA and DEC for objects with significant flux only in z-filter
 print('RA , DEC, g, r, z, w1, mask, type, z-nobs, z-rchi2')
 i = 0
 while i < len(RA2) and i < len(DEC2) and i < len(g2) and i < len(r2) and i < len(z2) and i < len(w1_2) and i < len(aMask2):
