@@ -35,28 +35,33 @@ def magnitude(f): # nanomaggies to magnitudes
       m = 22.5 - 2.5*math.log10(f)
    return m
 
-aMask = [sum(x) for x in Mask]
+aMask = [sum(x) for x in Mask] # sum of all masking values per filter
 
 znobs = d_nobs[:,4]
 
-g = fD[:,1]
-r = fD[:,2]
-z = fD[:,4]
+g = fD[:,1] # g-flux
+r = fD[:,2] # r-flux
+z = fD[:,4] # z-flux
 
+# Fluxes to magnitudes
 gMag = [magnitude(f) for f in g]
 rMag = [magnitude(f) for f in r]
 zMag = [magnitude(f) for f in z]
 
+# Removing all magnitudes with value of 35 (ie: negative flux) and objects with masking values > 0
 gMag1 = [x for (x,y,w) in zip(gMag, gMag, aMask) if y != 35 and w == 0]
 rMag1 = [x for (x,y,w) in zip(rMag, rMag, aMask) if y != 35 and w == 0]
 zMag1 = [x for (x,y,w) in zip(zMag, zMag, aMask) if y != 35 and w == 0]
 
+# All objects with no masking errors
 unmasked_obj = [x for (x,y) in zip(z, aMask) if y == 0]
 num_unmasked_obj = len(unmasked_obj)
 
+# Ellipticity for objects that have type COMP or EXP
 eExp1= [x for (x,y,z) in zip(eE1, aMask, type1) if y == 0 and (z == 'COMP' or z == 'EXP')]
 eExp2 = [x for (x,y,z) in zip(eE2, aMask, type1) if y == 0 and (z == 'COMP' or z == 'EXP')]
 
+# Ellipticity for objects that have type COMP or DEV
 eDev1= [x for (x,y,z) in zip(eD1, aMask, type1) if y == 0 and (z == 'COMP' or z == 'DEV')]
 eDev2 = [x for (x,y,z) in zip(eD2, aMask, type1) if y == 0 and (z == 'COMP' or z == 'DEV')]
 
