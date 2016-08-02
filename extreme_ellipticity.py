@@ -97,64 +97,64 @@ zMAG_B1 = [x for (x, mask) in zip(zMAG_B, aMask_B) if mask == 0]
 #Exponential Graphs
 rE1_A_ellipse = [x for (x, mask1) in zip(rE_A1, eE1_A1) if mask1 >= 0.75 or mask1<= -0.75]  # conditions for extreme ellipticities
 rE1_B_ellipse = [x for (x, mask1) in zip(rE_B1, eE1_B1) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(rE1_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(rE1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(rE1_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(rE1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity Radius Histogram (Exponential 1)")
 plt.xlabel("Radius (e>0.75, e<-0.75)")
 plt.show()
 
 rE2_A_ellipse = [x for (x, mask1) in zip(rE_A1, eE2_A2) if mask1 >= 0.75 or mask1<= -0.75] 
 rE2_B_ellipse = [x for (x, mask1) in zip(rE_B1, eE2_B2) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(rE2_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(rE2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(rE2_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(rE2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity Radius Histogram (Exponential 2)")
 plt.xlabel("Radius (e>0.75, e<-0.75)")
 plt.show()
 
 g1_A_ellipse = [x for (x, mask1) in zip(gMAG_A1, eE1_A1) if mask1 >= 0.75 or mask1<= -0.75] 
 g1_B_ellipse = [x for (x, mask1) in zip(gMAG_B1, eE1_B1) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(g1_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(g1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(g1_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(g1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity g-Magnitude Histogram (Exponential 1)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
 
 g2_A_ellipse = [x for (x, mask1) in zip(gMAG_A1, eE2_A2) if mask1 >= 0.75 or mask1<= -0.75] 
 g2_B_ellipse = [x for (x, mask1) in zip(gMAG_B1, eE2_B2) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(g2_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(g2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(g2_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(g2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity g-Magnitude Histogram (Exponential 2)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
 
 r1_A_ellipse = [x for (x, mask1) in zip(rMAG_A1, eE1_A1) if mask1 >= 0.75 or mask1<= -0.75] 
 r1_B_ellipse = [x for (x, mask1) in zip(rMAG_B1, eE1_B1) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(r1_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(r1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(r1_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(r1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity r-Magnitude Histogram (Exponential 1)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
 
 r2_A_ellipse = [x for (x, mask1) in zip(rMAG_A1, eE2_A2) if mask1 >= 0.75 or mask1<= -0.75] 
 r2_B_ellipse = [x for (x, mask1) in zip(rMAG_B1, eE2_B2) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(r2_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(r2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(r2_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(r2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity r-Magnitude Histogram (Exponential 2)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
 
 z1_A_ellipse = [x for (x, mask1) in zip(zMAG_A1, eE1_A1) if mask1 >= 0.75 or mask1<= -0.75] 
 z1_B_ellipse = [x for (x, mask1) in zip(zMAG_B1, eE1_B1) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(g1_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(g1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(g1_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(g1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity z-Magnitude Histogram (Exponential 1)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
 
 z2_A_ellipse = [x for (x, mask1) in zip(zMAG_A1, eE2_A2) if mask1 >= 0.75 or mask1<= -0.75] 
 z2_B_ellipse = [x for (x, mask1) in zip(zMAG_B1, eE2_B2) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(z2_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(z2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(z2_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(z2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity z-Magnitude Histogram (Exponential 2)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
@@ -162,64 +162,64 @@ plt.show()
 # de Vaucouleurs
 rD1_A_ellipse = [x for (x, mask1) in zip(rD_A1, eD1_A1) if mask1 >= 0.75 or mask1<= -0.75] 
 rD1_B_ellipse = [x for (x, mask1) in zip(rD_B1, eD1_B1) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(rD1_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(rD1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(rD1_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(rD1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity Radius Histogram (de Vaucouleurs 1)")
 plt.xlabel("Radius (e>0.75, e<-0.75)")
 plt.show()
 
 rD2_A_ellipse = [x for (x, mask1) in zip(rD_A1, eD2_A2) if mask1 >= 0.75 or mask1<= -0.75] 
 rD2_B_ellipse = [x for (x, mask1) in zip(rD_B1, eD2_B2) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(rD2_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(rD2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(rD2_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(rD2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity Radius Histogram (de Vaucouleurs 2)")
 plt.xlabel("Radius (e>0.75, e<-0.75)")
 plt.show()
 
 g1_A_ellipse = [x for (x, mask1) in zip(gMAG_A1, eD1_A1) if mask1 >= 0.75 or mask1<= -0.75] 
 g1_B_ellipse = [x for (x, mask1) in zip(gMAG_B1, eD1_B1) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(g1_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(g1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(g1_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(g1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity g-Magnitude Histogram (de Vaucouleurs 1)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
 
 g2_A_ellipse = [x for (x, mask1) in zip(gMAG_A1, eD2_A2) if mask1 >= 0.75 or mask1<= -0.75] 
 g2_B_ellipse = [x for (x, mask1) in zip(gMAG_B1, eD2_B2) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(g2_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(g2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(g2_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(g2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity g-Magnitude Histogram (de Vaucouleurs 2)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
 
 r1_A_ellipse = [x for (x, mask1) in zip(rMAG_A1, eD1_A1) if mask1 >= 0.75 or mask1<= -0.75] 
 r1_B_ellipse = [x for (x, mask1) in zip(rMAG_B1, eD1_B1) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(r1_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(r1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(r1_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(r1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity r-Magnitude Histogram (de Vaucouleurs 1)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
 
 r2_A_ellipse = [x for (x, mask1) in zip(rMAG_A1, eD2_A2) if mask1 >= 0.75 or mask1<= -0.75] 
 r2_B_ellipse = [x for (x, mask1) in zip(rMAG_B1, eD2_B2) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(r2_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(r2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(r2_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(r2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity r-Magnitude Histogram (de Vaucouleurs 2)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
 
 z1_A_ellipse = [x for (x, mask1) in zip(zMAG_A1, eD1_A1) if mask1 >= 0.75 or mask1<= -0.75] 
 z1_B_ellipse = [x for (x, mask1) in zip(zMAG_B1, eD1_B1) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(g1_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(g1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(g1_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(g1_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity z-Magnitude Histogram (de Vaucouleurs 1)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
 
 z2_A_ellipse = [x for (x, mask1) in zip(zMAG_A1, eD2_A2) if mask1 >= 0.75 or mask1<= -0.75] 
 z2_B_ellipse = [x for (x, mask1) in zip(zMAG_B1, eD2_B2) if mask1 >= 0.75 or mask1<= -0.75]
-plt.hist(z2_A_ellipse, histtype='stepfilled', color='r', label='DEC= -7.7')
-plt.hist(z2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7, label='DEC= -7.5')
+plt.hist(z2_A_ellipse, histtype='stepfilled', color='r')
+plt.hist(z2_B_ellipse, histtype='stepfilled', color='b', alpha=0.7)
 plt.title("Extreme Ellipticity z-Magnitude Histogram (de Vaucouleurs 2)")
 plt.xlabel("Magnitude (e>0.75, e<-0.75)")
 plt.show()
