@@ -29,29 +29,30 @@ d_nobs = tbl.field('decam_nobs') # Decam number of exposures
 # Necessary imports and definitions
 import matplotlib.pyplot as plt
 import math
-import itertools 
+import itertools
 from numpy import mean
+import numpy as np
 def magnitude(f): # nanomaggies to magnitudes
    if f <= 0:
-      m = 35 # if flux is negative, magnitude value will be 35 so it is separated from the rest of the data
+      m = 35
    else:
       m = 22.5 - 2.5*math.log10(f)
    return m
 
 aMask = [sum(x) for x in Mask]
 
-# Number of observations in z-filter
+# Number of observations
 z_nobs = d_nobs[:,4]
-print('Number of observations in z (min, max):')
-print(min(z_nobs), max(z_nobs)) # Prints minimum and maximum number of observations in z
+print(min(z_nobs))
+print(max(z_nobs))
 
-
-# PSF Sizes
+# Print PSF Size
 g_PSF = PSF[:,1]
 r_PSF = PSF[:,2]
 z_PSF = PSF[:,4]
 print ('PSF sizes: (g, r, z):')
-print (mean(g_PSF),mean(r_PSF), mean(z_PSF)) # Prints PSF sizes for all three filters
+print (mean(g_PSF),mean(r_PSF), mean(z_PSF))
+
 
 # RA histogram
 plt.hist(RA, histtype='stepfilled', color='c')
@@ -65,48 +66,45 @@ plt.title("DECaL DEC Histogram")
 plt.xlabel("DEC Value")
 plt.show()
 
-"""
-For these histograms, no objects with masking values greater than 0 will be used. Ellipticity and radius are matched with their 
-corresponding type.
-"""
-
-# Radius, Exponential 
-rE_1 = [word for (word, mask1, mask2) in zip(rE, type1, aMask) if mask1 == 'EXP' and  mask2 == 0] 
-plt.hist(rE_1, range=(0, 10), histtype='stepfilled', color='c')
+# Radius, Exponential
+rE_1 = [word for (word, mask1, mask2) in zip(rE, type1, aMask) if (mask1 == 'EXP' or mask1 == 'COMP') and  mask2 == 0]
+plt.hist(rE_1, bins=np.logspace(0, 2.5, 50), histtype='stepfilled', color='c')
 plt.title("DECaL Half-Light Radius (Exponential) Histogram")
 plt.xlabel("Radius")
 plt.yscale('log')
+plt.xscale('log')
 plt.show()
 
 # Radius, de  Vaucouleurs
-rD_1 = [word for (word, mask1, mask2) in zip(rD, type1, aMask) if mask1 == 'DEV' and  mask2 == 0]
-plt.hist(rD_1, range=(0, 10), histtype='stepfilled', color='c')
+rD_1 = [word for (word, mask1, mask2) in zip(rD, type1, aMask) if (mask1 == 'DEV' or mask1 == 'COMP') and  mask2 == 0]
+plt.hist(rD_1, bins=np.logspace(0, 2.5, 50), color='c')
 plt.title("DECaL Half-Light Radius (de Vaucouleurs) Histogram")
 plt.xlabel("Radius")
 plt.yscale('log')
+plt.xscale('log')
 plt.show()
 
 # Ellipticity, Exponential
-eE1_1 = [word for (word, mask1, mask2) in zip(eE1, type1, aMask) if mask1 == 'EXP' and  mask2 == 0]
+eE1_1 = [word for (word, mask1, mask2) in zip(eE1, type1, aMask) if (mask1 == 'EXP' or mask1 == 'COMP') and  mask2 == 0]
 plt.hist(eE1_1, bins=60,  histtype='stepfilled', color='c')
 plt.title("DECaL Ellipticity Component 1 (Exponential) Histogram")
 plt.xlabel("Ellipticity")
 plt.show()
 
-eE2_1 = [word for (word, mask1, mask2) in zip(eE2, type1, aMask) if mask1 == 'EXP' and  mask2 == 0]
+eE2_1 = [word for (word, mask1, mask2) in zip(eE2, type1, aMask) if (mask1 == 'EXP' or mask1 == 'COMP') and  mask2 == 0]
 plt.hist(eE2_1, bins=60, histtype='stepfilled', color='c')
 plt.title("DECaL Ellipticity Component 2 (Exponential) Histogram")
 plt.xlabel("Ellipticity")
 plt.show()
          
 # Ellipticity, de Vaucouleurs
-eD1_1 = [word for (word, mask1, mask2) in zip(eD1, type1, aMask) if mask1 == 'DEV' and  mask2 == 0]
+eD1_1 = [word for (word, mask1, mask2) in zip(eD1, type1, aMask) if (mask1 == 'DEV' or mask1 == 'COMP') and  mask2 == 0]
 plt.hist(eD1_1, bins=60,  histtype='stepfilled', color='c')
 plt.title("DECaL Ellipticity Component 1 (de Vaucouleurs) Histogram")
 plt.xlabel("Ellipticity")
 plt.show()
 
-eD2_1 = [word for (word, mask1, mask2) in zip(eD2, type1, aMask) if mask1 == 'DEV' and  mask2 == 0]
+eD2_1 = [word for (word, mask1, mask2) in zip(eD2, type1, aMask) if (mask1 == 'DEV' or mask1 == 'COMP') and  mask2 == 0]
 plt.hist(eD2_1, bins=60, histtype='stepfilled', color='c')
 plt.title("DECaL Ellipticity Component 2 (de Vaucouleurs) Histogram")
 plt.xlabel("Ellipticity")
@@ -138,5 +136,6 @@ plt.hist(zMAG_1, bins=60, histtype='stepfilled', color='c')
 plt.title("DeCAL Magnitude Histogram (z-filter)")
 plt.xlabel("Magnitude") 
 plt.show()
+
 
 
